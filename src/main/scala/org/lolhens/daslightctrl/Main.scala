@@ -1,7 +1,7 @@
 package org.lolhens.daslightctrl
 
 import monix.reactive.Observable
-
+import monix.execution.Scheduler.Implicits.global
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
@@ -19,6 +19,11 @@ object Main {
 
     server.messages
       .flatMap(message => Observable.fromFuture(gpioControl.scene = message))
-      .foreachL(_ => ())
+      .foreach(_ => ())
+      //.foreach(println(_))
+
+    while (true) {
+      Thread.sleep(1000)
+    }
   }
 }

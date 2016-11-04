@@ -20,13 +20,19 @@ class Server(val port: Int) {
         });
         inputStream = socket.getInputStream;
         message <- Observable.fromIterator(new Iterator[Int] {
-          var closed = false
+          var lastByte: Option[Int] = None
 
-          override def hasNext: Boolean = !closed
+          def read() = lastByte.getOrElse {
+            val byte = inputStream.read()
+            lastByte = Some(byte)
+            byte
+          }
+
+          override def hasNext: Boolean = read() != -1
 
           override def next(): Int = {
-            val byte = inputStream.read()
-            if (byte == -1) closed = true
+            val byte = read()
+            lastByte = None
             byte
           }
         })
