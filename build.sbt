@@ -29,7 +29,7 @@ lazy val settings = Seq(
   addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full),
   addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.2"),
 
-  mainClass in Compile := Some(""),
+  mainClass in Compile := Some("org.lolhens.daslightctrl.Main"),
 
   scalacOptions ++= Seq("-Xmax-classfile-name", "254")
 )

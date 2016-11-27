@@ -19,7 +19,7 @@ object Main {
 
     server.messages
       .flatMap(message => Observable.fromFuture(gpioControl.scene = message))
-      .foreach(_ => ())
+      .subscribe()
       //.foreach(println(_))
 
     while (true) {
